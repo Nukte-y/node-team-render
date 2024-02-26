@@ -10,7 +10,7 @@ Generate an HTML web page displaying based on input from the command line.
 - [License](#license)
 
 ## Description
-This project is a command-line application that generates professional README files for your projects. It simplifies the process by prompting the user for information about the project and then dynamically creates a README.md file based on the responses.
+This is a command-line application that allows a user to generate an HTML webpage that displays summaries for each member of a software engineering team. The application gathers information about the team members using prompts and then generates an HTML file based on that information. It includes classes for each type of team member (Employee, Manager, Engineer, and Intern), which are used to create objects for each team member.
 
 ## Usage
 To use the application, follow these steps:
