@@ -74,20 +74,22 @@ const internQuestions = [
     },
     {
         type: "input",
-        name: "Eemail",
+        name: "Iemail",
         message: "What is Intern's email adress?"
     },
     {
         type: "input",
-        name: "Eemail",
+        name: "Ischool",
         message: "What school does the Intern attend?"
     }
 ]
 
+var EmployeeArray =[];
 
 function askQuestions() {
     inquirer.prompt(questions).then( answer => {
-        const manager = new Employee(answer.name,answer.id,answer.email,"Manager")
+        const manager = new Manager(answer.Mname,answer.id,answer.email,answer.office)
+        EmployeeArray.push(manager);
         init();
     })
 }
@@ -103,23 +105,29 @@ function init() {
     .then(answers => {
         if (answers.role === "Engineer") {
             inquirer.prompt(engineerQuestions).then(engineerAnswers => { 
-                createEmployee(engineerAnswers);
+                const EngineerEmployee = new Engineer(engineerAnswers.Ename,engineerAnswers.Eid,engineerAnswers.Eemail,engineerAnswers.gitHub);
+                EmployeeArray.push(EngineerEmployee);
                 init(); 
             });
         } else if (answers.role === "Intern") {
             inquirer.prompt(internQuestions).then(internAnswers => {
-                createEmployee(internAnswers);
-                init(); 
+                const InternEmployee = new Intern(internAnswers.Iname,internAnswers.Iid,internAnswers.Iemail,internAnswers.Ischool);
+                EmployeeArray.push(InternEmployee);
+                init();
             });
         } else if (answers.role === "Finish building the team") {
             console.log("Building team is finished!");
+            fs.writeFile("index.html",render(EmployeeArray),(err) => {
+                if (err) throw err;
+                console.log("HTML file has been generated!");
+                 });
         }
     });    
- };
+};
+
 askQuestions();
 
-function createEmployee(answer){
-    const newEmployee = new Employee(answer.name,answer.id,answer.email,answer.role);
-    return newEmployee;
-}
+
+
+
 
